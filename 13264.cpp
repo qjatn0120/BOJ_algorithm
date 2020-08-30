@@ -2,7 +2,7 @@
 
 using namespace std;
 
-const int MX = 100005;
+const int MX = 200005;
 
 string s;
 int g[MX], tg[MX], SA[MX];
@@ -17,7 +17,7 @@ struct cmp{
 };
 
 void GetSA(){
-    for(int i = 0; i < s.size(); i++) g[i] = s[i] - 'a', SA[i] = i;
+    for(int i = 0; i < s.size(); i++) g[i] = s[i] - 'a' + 1, SA[i] = i;
     for(int t = 1; t <= s.size(); t <<= 1){
         sort(SA, SA + s.size(), cmp(t));
         tg[SA[0]] = 1;

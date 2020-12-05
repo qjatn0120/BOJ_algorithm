@@ -2,11 +2,10 @@
 
 using namespace std;
 
-const int MX = 1e5 + 5;
+const int MX = 2e5 + 5;
 
 long long int W, H, L, N;
-
-vector <long long int> query[MX * 2];
+long long int q1[MX], q2[MX];
 
 int main(){
     cin.tie(nullptr), ios::sync_with_stdio(false);
@@ -19,17 +18,17 @@ int main(){
         if(y * W < (x + w) * H) p2 = y * W / (x + w);
         else p2 = W + H - (H * (x + w) / y + !!((H * (x + w)) % y));
         if(p1 - p2 > L) continue;
-        query[p1].push_back(w * h);
-        query[p2].push_back(-w * h);
+        q1[p1] += w * h;
+        q2[p2] += -w * h;
     }
     long long int Area = 0, ans = 0;
     for(int i = 0; i < L; i++){
-        for(auto q : query[i]) Area += max(0LL, q);
+        Area += q1[i];
     }
     for(int i = 0; i + L < W + H; i++){
-        for(auto q : query[i + L]) Area += max(0LL, q);
+        Area += q1[i + L];
         ans = max(ans, Area);
-        for(auto q : query[i]) Area += min(0LL, q);
+        Area += q2[i];
     }
     cout << ans;
 }
